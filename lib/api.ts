@@ -28,12 +28,16 @@ export interface CreateNotePayload {
   tag: NoteTag;
 }
 
-export const fetchNotes = async (
-  params: FetchNotesParams,
-): Promise<FetchNotesResponse> => {
-  const response = await noteApi.get<FetchNotesResponse>("/notes", { params });
+export async function fetchNotes(page = 1, search = "", tag = "") {
+  const params: Record<string, string | number> = { page };
+  if (search) params.search = search;
+  if (tag && tag !== "all") {
+    params.tag = tag;
+  }
+
+  const response = await axios.get("/notes", { params });
   return response.data;
-};
+}
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const response = await noteApi.get<Note>(`/notes/${id}`);
