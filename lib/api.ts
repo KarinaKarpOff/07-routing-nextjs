@@ -28,14 +28,18 @@ export interface CreateNotePayload {
   tag: NoteTag;
 }
 
-export async function fetchNotes(page = 1, search = "", tag = "") {
+export async function fetchNotes(
+  page = 1,
+  search = "",
+  tag = "",
+): Promise<FetchNotesResponse> {
   const params: Record<string, string | number> = { page };
   if (search) params.search = search;
   if (tag && tag !== "all") {
     params.tag = tag;
   }
 
-  const response = await noteApi.get("/notes", { params });
+  const response = await noteApi.get<FetchNotesResponse>("/notes", { params });
   return response.data;
 }
 
