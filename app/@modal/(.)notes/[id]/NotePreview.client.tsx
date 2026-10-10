@@ -45,6 +45,11 @@ export default function NotePreviewClient({ id }: NotePreviewClientProps) {
       <div className={css.container}>
         <h2 className={css.title}>{note.title}</h2>
         <p className={css.content}>{note.content}</p>
+        {note.createdAt && (
+          <p className={css.date}>
+            Created at: {new Date(note.createdAt).toLocaleDateString()}
+          </p>
+        )}
         <span className={css.tag}>{note.tag}</span>
       </div>
     </Modal>
