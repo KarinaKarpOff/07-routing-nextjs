@@ -35,7 +35,7 @@ export async function fetchNotes(page = 1, search = "", tag = "") {
     params.tag = tag;
   }
 
-  const response = await axios.get("/notes", { params });
+  const response = await noteApi.get("/notes", { params });
   return response.data;
 }
 
